@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: apicoin
+    env: python
+    region: singapore
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      playwright install --with-deps
+    startCommand: python apicoin.py
+    envVars:
+      - key: PLAYWRIGHT_BROWSERS_PATH
+        value: /tmp/playwright
+
