@@ -1,13 +1,13 @@
 services:
   - type: web
-    name: apicoin
+    name: apitygia
     env: python
     region: singapore
     plan: free
     buildCommand: |
       pip install -r requirements.txt
-      python -m playwright install --with-deps
-    startCommand: python apicoin.py
+      python -m playwright install chromium
+    startCommand: python apitygia.py
     envVars:
       - key: PLAYWRIGHT_BROWSERS_PATH
         value: /tmp/playwright
