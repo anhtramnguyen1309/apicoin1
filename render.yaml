@@ -5,9 +5,8 @@ services:
     region: singapore
     plan: free
     buildCommand: |
-         pip install -r requirements.txt
-         npx playwright install --with-deps
-
+      pip install -r requirements.txt
+      python -m playwright install --with-deps
     startCommand: python apicoin.py
     envVars:
       - key: PLAYWRIGHT_BROWSERS_PATH
