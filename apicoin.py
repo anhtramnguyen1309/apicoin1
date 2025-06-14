@@ -1,7 +1,8 @@
 from flask import Flask, jsonify
-import json, os, asyncio, threading
+import json, os
 from coin1 import update_cache
-
+from apscheduler.schedulers.background import BackgroundScheduler
+import asyncio
 
 app = Flask(__name__)
 
@@ -12,20 +13,20 @@ def get_giacoin_data():
     with open("giacoin_cache.json", "r") as f:
         return jsonify(json.load(f))
 
-def start_background_updater():
-    async def loop():
-        print("🚀 Cập nhật ngay khi khởi động...")
-        await update_cache()  # ✅ Gọi lần đầu ngay lập tức
-        while True:
-            print("🔁 Đang cập nhật dữ liệu...")
-            await update_cache()
-            await asyncio.sleep(5)
+# ✅ Cập nhật định kỳ bằng APScheduler
+def start_scheduler():
+    loop = asyncio.get_event_loop()
+    scheduler = BackgroundScheduler()
 
-    def run():
-        asyncio.run(loop())
+    async def async_job():
+        print("🔁 Đang cập nhật bằng APScheduler...")
+        await update_cache()
 
-    threading.Thread(target=run, daemon=True).start()
+    def wrapper():
+        asyncio.run(async_job())
 
+    scheduler.add_job(wrapper, "interval", seconds=10)
+    scheduler.start()
 
-start_background_updater()
-    
+# ✅ Gọi khi app khởi động (ngay cả với gunicorn)
+start_scheduler()
