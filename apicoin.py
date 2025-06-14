@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 import json, os, asyncio, threading
 from coin1 import update_cache
 
+
 app = Flask(__name__)
 
 @app.route("/api/giacoin")

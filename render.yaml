@@ -3,12 +3,11 @@ services:
     name: apicoin
     env: python
     region: singapore
-    plan: 7$
+    plan: free
     buildCommand: |
       pip install -r requirements.txt
-      python -m playwright install chromium
+      playwright install chromium
     startCommand: gunicorn apicoin:app
-
     envVars:
       - key: PLAYWRIGHT_BROWSERS_PATH
         value: /tmp/playwright
