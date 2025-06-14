@@ -54,7 +54,8 @@ async def get_naver_rate(page):
         if match:
             krw_for_100_vnd = float(match.group(1))
             vnd_per_krw = 1 / krw_for_100_vnd
-            return f"{vnd_per_krw:.2f}"
+            return round(vnd_per_krw, 2)
+
         else:
             print("❌ Không tìm thấy tỷ giá từ NAVER")
             return None
