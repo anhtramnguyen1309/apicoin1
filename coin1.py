@@ -1,4 +1,5 @@
 # update_giacoin_cache.py
+
 import aiohttp
 import asyncio
 import json
@@ -91,6 +92,8 @@ async def get_naver_rate(page):
         print("⚠️ Lỗi NAVER:", e)
         return None        
 async def update_cache():
+    
+
     async with async_playwright() as p:
         browser = await p.chromium.launch()
         page = await browser.new_page()
@@ -115,14 +118,14 @@ async def update_cache():
     }
 
     with open("giacoin_cache.json", "w") as f:
-        json.dump(result, f, ensure_ascii=False, indent=2)
+     
 
-if __name__ == "__main__":
-    async def run_forever():
-        while True:
-            print("🔁 Đang cập nhật dữ liệu...")
-            await update_cache()
-            await asyncio.sleep(5)  # Cập nhật mỗi 5 giây
+     if __name__ == "__main__":
+        async def run_forever():
+            while True:
+                print("🔁 Đang cập nhật dữ liệu...")
+                await update_cache()
+                await asyncio.sleep(3)  # Cập nhật mỗi 3 giây
 
-    asyncio.run(run_forever())
+        asyncio.run(run_forever())
 
