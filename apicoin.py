@@ -14,15 +14,18 @@ def get_giacoin_data():
 
 def start_background_updater():
     async def loop():
+        print("🚀 Cập nhật ngay khi khởi động...")
+        await update_cache()  # ✅ Gọi lần đầu ngay lập tức
         while True:
             print("🔁 Đang cập nhật dữ liệu...")
             await update_cache()
-            await asyncio.sleep(0.6)
+            await asyncio.sleep(5)
 
     def run():
         asyncio.run(loop())
 
     threading.Thread(target=run, daemon=True).start()
+
 
 start_background_updater()
     
