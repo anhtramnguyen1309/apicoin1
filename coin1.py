@@ -1,9 +1,9 @@
-# update_giacoin_cache.py
-
+# update_giacoin_cache
 import aiohttp
 import asyncio
 import json
 import time
+import re
 from playwright.async_api import async_playwright
 
 coins = ["BTC", "ETH", "XRP", "TRX", "DOGE"]
@@ -43,35 +43,6 @@ async def fetch_bithumb_price(symbol):
             return float(data['data']['closing_price']) if 'data' in data else None
 
 async def get_naver_rate(page):
-    await page.goto("https://finance.naver.com/marketindex/exchangeList.naver")
-    await page.wait_for_selector(".tbl_exchange")
-    rows = await page.query_selector_all(".tbl_exchange tbody tr")
-    for row in rows:
-        tds = await row.query_selector_all("td")
-        if len(tds) >= 2:
-            country = await tds[0].inner_text()
-            if "KRW/JPY" not in country and "KRW" in country and "VND" in country:
-                value = await tds[1].inner_text()
-                return float(value.replace(",", ""))
-    return None
-
-async def update_cache():
-    async with async_playwright() as p:
-        browser = await p.chromium.launch()
-        page = await browser.new_page()
-        naver_rate = await get_naver_rate(page)
-        await browser.close()
-
-    usdt_vnd = await fetch_usdt_vnd_binance_p2p()
-    usdt_krw = await fetch_bithumb_price("USDT")
-
-    coins_data = {}
-    for coin in coins:
-        binance = await fetch_binance_usdt_price(coin)
-        bithumb = await fetch_bithumb_price(coin)
-        coins_data[coin] = {"binance": binance, "bithumb": bithumb}
-import re
-async def get_naver_rate(page):
     try:
         await page.goto("https://finance.naver.com/marketindex/exchangeDetail.nhn?marketindexCd=FX_VNDKRW")
         await page.wait_for_timeout(3000)
@@ -90,10 +61,9 @@ async def get_naver_rate(page):
 
     except Exception as e:
         print("⚠️ Lỗi NAVER:", e)
-        return None        
-async def update_cache():
-    
+        return None  
 
+async def update_cache():
     async with async_playwright() as p:
         browser = await p.chromium.launch()
         page = await browser.new_page()
@@ -118,14 +88,13 @@ async def update_cache():
     }
 
     with open("giacoin_cache.json", "w") as f:
-     
+        json.dump(result, f, ensure_ascii=False, indent=2)
 
-     if __name__ == "__main__":
-        async def run_forever():
-            while True:
-                print("🔁 Đang cập nhật dữ liệu...")
-                await update_cache()
-                await asyncio.sleep(3)  # Cập nhật mỗi 3 giây
+if __name__ == "__main__":
+    async def run_forever():
+        while True:
+            print("🔁 Đang cập nhật dữ liệu...")
+            await update_cache()
+            await asyncio.sleep(0.6)  # Cập nhật mỗi 3 giây
 
-        asyncio.run(run_forever())
-
+    asyncio.run(run_forever())

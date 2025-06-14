@@ -1,27 +1,27 @@
 {
-  "updated_at": 1749836398.1427898,
-  "usdt_vnd": 26196.0,
-  "usdt_krw": 1388.0,
-  "naver_rate": "19.05",
+  "updated_at": 1749877266.8965983,
+  "usdt_vnd": 26193.0,
+  "usdt_krw": 1391.0,
+  "naver_rate": "19.01",
   "coins": {
     "BTC": {
-      "binance": 105257.49,
-      "bithumb": 146088000.0
+      "binance": 105366.25,
+      "bithumb": 146609000.0
     },
     "ETH": {
-      "binance": 2545.21,
-      "bithumb": 3531000.0
+      "binance": 2552.2,
+      "bithumb": 3552000.0
     },
     "XRP": {
-      "binance": 2.1433,
-      "bithumb": 2977.0
+      "binance": 2.1633,
+      "bithumb": 3010.0
     },
     "TRX": {
       "binance": 0.2706,
-      "bithumb": 376.0
+      "bithumb": 377.0
     },
     "DOGE": {
-      "binance": 0.17826,
+      "binance": 0.17816,
       "bithumb": 247.0
     }
   }

@@ -16,7 +16,7 @@ def start_background_updater():
         while True:
             print("🔁 Đang cập nhật dữ liệu...")
             await update_cache()
-            await asyncio.sleep(0.3)
+            await asyncio.sleep(0.6)
 
     def run():
         asyncio.run(loop())
