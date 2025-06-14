@@ -10,5 +10,6 @@ services:
     startCommand: python apicoin.py
     envVars:
       - key: PLAYWRIGHT_BROWSERS_PATH
-        value: /mnt/data/playwright
+        value: /tmp/playwright
+
 
