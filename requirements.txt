@@ -4,3 +4,4 @@ aiohttp
 playwright
 nest_asyncio
 gunicorn
+apscheduler
