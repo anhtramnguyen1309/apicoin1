@@ -62,8 +62,14 @@ async def get_naver_rate(page):
     except Exception as e:
         print("⚠️ Lỗi NAVER:", e)
         return None  
+    
+
+
+from datetime import datetime
 
 async def update_cache():
+    print(datetime.now())
+
     async with async_playwright() as p:
         browser = await p.chromium.launch()
         page = await browser.new_page()
@@ -89,12 +95,4 @@ async def update_cache():
 
     with open("giacoin_cache.json", "w") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
-
-if __name__ == "__main__":
-    async def run_forever():
-        while True:
-            print("🔁 Đang cập nhật dữ liệu...")
-            await update_cache()
-            await asyncio.sleep(0.6)  # Cập nhật mỗi 3 giây
-
-    asyncio.run(run_forever())
+        
