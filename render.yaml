@@ -6,7 +6,7 @@ services:
     plan: 7$
     buildCommand: |
       pip install -r requirements.txt
-      python -m playwright install --with-deps chromium
+      python -m playwright install chromium
     startCommand: python apicoin.py
     envVars:
       - key: PLAYWRIGHT_BROWSERS_PATH
