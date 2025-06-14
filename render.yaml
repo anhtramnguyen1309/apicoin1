@@ -7,7 +7,8 @@ services:
     buildCommand: |
       pip install -r requirements.txt
       python -m playwright install chromium
-    startCommand: python apicoin.py
+    startCommand: gunicorn apicoin:app
+
     envVars:
       - key: PLAYWRIGHT_BROWSERS_PATH
         value: /tmp/playwright

@@ -3,3 +3,4 @@ requests
 aiohttp
 playwright
 nest_asyncio
+gunicorn
