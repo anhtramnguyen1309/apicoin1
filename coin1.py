@@ -96,4 +96,15 @@ async def update_cache():
 
     with open("giacoin_cache.json", "w") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
-        
+        print("✅ NAVER RATE:", naver_rate, type(naver_rate))
+        print("💾 Ghi JSON với naver_rate =", result["naver_rate"], type(result["naver_rate"]))
+if __name__ == "__main__":
+    import asyncio
+
+    async def test():
+        print("▶️ Bắt đầu cập nhật dữ liệu test...")
+        await update_cache()
+        print("✅ Đã chạy xong update_cache()")
+
+    asyncio.run(test())
+
